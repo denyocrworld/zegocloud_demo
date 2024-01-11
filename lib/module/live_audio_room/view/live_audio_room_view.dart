@@ -1,5 +1,8 @@
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:live_audio_room/core.dart';
+import 'package:live_audio_room/module/live_audio_room/widget/info_container.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:zego_uikit_prebuilt_live_audio_room/zego_uikit_prebuilt_live_audio_room.dart';
 
 class LiveAudioRoomView extends StatefulWidget {
@@ -18,7 +21,199 @@ class LiveAudioRoomView extends StatefulWidget {
     controller.view = this;
 
     Widget foreground(BoxConstraints constraints) {
-      return Container();
+      return Stack(
+        children: [
+          //GIFT BUTTON AND PANEL
+          Positioned(
+            left: 56,
+            bottom: 14,
+            child: CircleAvatar(
+              radius: 16.0,
+              backgroundColor: Colors.white,
+              child: InkWell(
+                onTap: () async {
+                  await showModalBottomSheet<void>(
+                    context: context,
+                    backgroundColor: Colors.transparent,
+                    builder: (BuildContext context) {
+                      return Material(
+                        color: Colors.transparent,
+                        child: Stack(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(20.0),
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.8),
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(
+                                    24.0,
+                                  ),
+                                  topRight: Radius.circular(
+                                    24.0,
+                                  ),
+                                ),
+                              ),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        icon: const Icon(
+                                          Icons.arrow_back,
+                                          size: 24.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 12.0,
+                                      ),
+                                      const Icon(
+                                        Icons.circle,
+                                        size: 24.0,
+                                        color: Color(0xfff0ba30),
+                                      ),
+                                      const SizedBox(
+                                        width: 4.0,
+                                      ),
+                                      const Text(
+                                        "120",
+                                        style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      SizedBox(
+                                        height: 38,
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                                const Color(0xfff0ba30),
+                                          ),
+                                          onPressed: () {},
+                                          child: const Text(
+                                            "Buy Coin",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 20.0,
+                                  ),
+                                  Row(
+                                    children: List.generate(
+                                      6,
+                                      (index) {
+                                        bool selected = index == 0;
+                                        return Expanded(
+                                          child: Column(
+                                            children: [
+                                              Icon(
+                                                Icons.developer_board,
+                                                size: 28.0,
+                                                color: selected
+                                                    ? Colors.white
+                                                    : Colors.white
+                                                        .withOpacity(0.6),
+                                              ),
+                                              Text(
+                                                "Menu1",
+                                                style: TextStyle(
+                                                  fontSize: 14.0,
+                                                  color: selected
+                                                      ? Colors.white
+                                                      : Colors.white
+                                                          .withOpacity(0.6),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 20.0,
+                                  ),
+                                  GridView.builder(
+                                    padding: EdgeInsets.zero,
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      childAspectRatio: 1.0,
+                                      crossAxisCount: 4,
+                                      mainAxisSpacing: 6,
+                                      crossAxisSpacing: 6,
+                                    ),
+                                    itemCount: 12,
+                                    shrinkWrap: true,
+                                    physics: const ScrollPhysics(),
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Container(
+                                        child: Column(
+                                          children: [
+                                            Icon(
+                                              MdiIcons.gift,
+                                              size: 22.0,
+                                              color: Colors.white,
+                                            ),
+                                            const SizedBox(
+                                              height: 6.0,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  MdiIcons.circle,
+                                                  size: 12.0,
+                                                  color:
+                                                      const Color(0xfff0ba30),
+                                                ),
+                                                const SizedBox(
+                                                  width: 2.0,
+                                                ),
+                                                Text(
+                                                  "${(index + 1) * 10}",
+                                                  style: const TextStyle(
+                                                    fontSize: 12.0,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
+                child: Icon(
+                  MdiIcons.gift,
+                  color: const Color(0xff5e5e5e),
+                  size: 18.0,
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
 
       // return simpleMediaPlayer(
       //   canControl: isHost,
@@ -39,35 +234,194 @@ class LiveAudioRoomView extends StatefulWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.fill,
-                image: Image.asset('assets/images/background.png').image,
+                // image: Image.asset('assets/images/background.png').image,
+                image: Image.network(
+                        'https://w0.peakpx.com/wallpaper/86/903/HD-wallpaper-winter-night-starry-stars.jpg')
+                    .image,
               ),
             ),
           ),
           const Positioned(
-              top: 10,
-              left: 10,
-              child: Text(
-                'Live Audio Room',
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  color: Color(0xff1B1B1B),
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                ),
-              )),
-          Positioned(
-            top: 10 + 20,
+            top: 10,
             left: 10,
-            child: Text(
-              'ID: $roomID',
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                color: Color(0xff606060),
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-              ),
+            child: Row(
+              children: [
+                InfoContainer(
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.star,
+                        size: 12.0,
+                        color: Color(0xfff0ba30),
+                      ),
+                      Text(
+                        "18",
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 6.0,
+                ),
+                InfoContainer(
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 12.0,
+                        backgroundImage: NetworkImage(
+                          "https://i.ibb.co/PGv8ZzG/me.jpg",
+                        ),
+                      ),
+                      SizedBox(
+                        width: 4.0,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Andrea",
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            "Room name",
+                            style: TextStyle(
+                              fontSize: 10.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          )
+          ),
+          const Positioned(
+            right: 12,
+            top: 12,
+            child: Row(
+              children: [
+                Stack(
+                  children: [
+                    CircleAvatar(
+                      radius: 12.0,
+                      backgroundImage: NetworkImage(
+                        "https://i.ibb.co/PGv8ZzG/me.jpg",
+                      ),
+                    ),
+                    Positioned(
+                      right: 0,
+                      bottom: 0,
+                      child: Text(
+                        "25k",
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 4.0,
+                ),
+                Stack(
+                  children: [
+                    CircleAvatar(
+                      radius: 12.0,
+                      backgroundImage: NetworkImage(
+                        "https://i.ibb.co/PGv8ZzG/me.jpg",
+                      ),
+                    ),
+                    Positioned(
+                      right: 0,
+                      bottom: 0,
+                      child: Text(
+                        "21k",
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 4.0,
+                ),
+                Stack(
+                  children: [
+                    CircleAvatar(
+                      radius: 12.0,
+                      backgroundImage: NetworkImage(
+                        "https://i.ibb.co/PGv8ZzG/me.jpg",
+                      ),
+                    ),
+                    Positioned(
+                      right: 0,
+                      bottom: 0,
+                      child: Text(
+                        "15k",
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 8.0,
+                ),
+                InfoContainer(
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.visibility,
+                        size: 12.0,
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        width: 4.0,
+                      ),
+                      Text(
+                        "136",
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Positioned(
+          //   top: 10 + 20,
+          //   left: 10,
+          //   child: Text(
+          //     'ID: $roomID',
+          //     overflow: TextOverflow.ellipsis,
+          //     style: TextStyle(
+          //       color: Color(0xff606060),
+          //       fontSize: 12,
+          //       fontWeight: FontWeight.w500,
+          //     ),
+          //   ),
+          // )
         ],
       );
     }
@@ -210,7 +564,7 @@ class LiveAudioRoomView extends StatefulWidget {
         isDismissible: true,
         isScrollControlled: true,
         builder: (BuildContext context) {
-          const textStyle = TextStyle(
+          TextStyle textStyle = const TextStyle(
             color: Colors.white,
             fontSize: 12,
             fontWeight: FontWeight.w500,
@@ -252,7 +606,7 @@ class LiveAudioRoomView extends StatefulWidget {
                     onTap: () async {
                       Navigator.of(context).pop();
                     },
-                    child: const Text(
+                    child: Text(
                       'Cancel',
                       style: textStyle,
                     ),
@@ -303,7 +657,14 @@ class LiveAudioRoomView extends StatefulWidget {
               ..background = background()
               ..foreground = foreground(constraints)
               ..topMenuBarConfig.buttons = [
-                ZegoMenuBarButtonName.minimizingButton
+                // ZegoMenuBarButtonName.minimizingButton,
+                // ZegoMenuBarButtonName.leaveButton,
+              ]
+              ..bottomMenuBarConfig.hostButtons = [
+                ZegoMenuBarButtonName.soundEffectButton,
+                ZegoMenuBarButtonName.toggleMicrophoneButton,
+                ZegoMenuBarButtonName.showMemberListButton,
+                ZegoMenuBarButtonName.closeSeatButton,
               ]
               ..userAvatarUrl = 'https://robohash.org/$localUserID.png'
               ..onUserCountOrPropertyChanged = (List<ZegoUIKitUser> users) {
