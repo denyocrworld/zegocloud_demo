@@ -58,7 +58,7 @@ class LiveAudioRoomController extends State<LiveAudioRoomView> {
     }
   }
 
-  Future<void> _sendGift() async {
+  Future<void> sendGift() async {
     try {
       final dio = Dio();
       final response = await dio.post(

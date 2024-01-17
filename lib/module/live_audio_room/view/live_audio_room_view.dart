@@ -660,12 +660,25 @@ class LiveAudioRoomView extends StatefulWidget {
                 // ZegoMenuBarButtonName.minimizingButton,
                 // ZegoMenuBarButtonName.leaveButton,
               ]
-              ..bottomMenuBarConfig.hostButtons = [
-                ZegoMenuBarButtonName.soundEffectButton,
-                ZegoMenuBarButtonName.toggleMicrophoneButton,
-                ZegoMenuBarButtonName.showMemberListButton,
-                ZegoMenuBarButtonName.closeSeatButton,
-              ]
+              // ..bottomMenuBarConfig.hostButtons = [
+              //   ZegoMenuBarButtonName.soundEffectButton,
+              //   ZegoMenuBarButtonName.toggleMicrophoneButton,
+              //   ZegoMenuBarButtonName.showMemberListButton,
+              //   ZegoMenuBarButtonName.closeSeatButton,
+              // ]
+              ..bottomMenuBarConfig =
+                  ZegoBottomMenuBarConfig(maxCount: 5, audienceExtendButtons: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(40, 40),
+                    shape: const CircleBorder(),
+                  ),
+                  onPressed: () {
+                    controller.sendGift();
+                  },
+                  child: const Icon(Icons.blender),
+                )
+              ])
               ..userAvatarUrl = 'https://robohash.org/$localUserID.png'
               ..onUserCountOrPropertyChanged = (List<ZegoUIKitUser> users) {
                 debugPrint(
