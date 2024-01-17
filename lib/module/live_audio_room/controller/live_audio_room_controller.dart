@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:live_audio_room/core.dart';
@@ -13,6 +15,16 @@ class LiveAudioRoomController extends State<LiveAudioRoomView> {
   @override
   void initState() {
     instance = this;
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      subscriptions
+        ..add(ZegoUIKit()
+            .getSignalingPlugin()
+            .getInRoomTextMessageReceivedEventStream()
+            .listen(onInRoomTextMessageReceived))
+        ..add(ZegoUIKit()
+            .getInRoomCommandReceivedStream()
+            .listen(onInRoomCommandReceived));
+    });
     super.initState();
   }
 
@@ -23,6 +35,28 @@ class LiveAudioRoomController extends State<LiveAudioRoomView> {
   Widget build(BuildContext context) => widget.build(context, this);
 
   final liveController = ZegoLiveAudioRoomController();
+  final List<StreamSubscription<dynamic>?> subscriptions = [];
+
+  void onInRoomTextMessageReceived(
+      ZegoSignalingPluginInRoomTextMessageReceivedEvent event) {
+    final messages = event.messages;
+    debugPrint("onInRoomTextMessageStream:$messages");
+    // You can display different animations according to gift-type
+    var message = messages.first;
+    if (message.senderUserID != localUserID) {
+      GiftWidget.show(context, "assets/sports-car.svga");
+    }
+  }
+
+  // if you use unreliable message channel, you need subscription this method.
+  void onInRoomCommandReceived(ZegoInRoomCommandReceivedData commandData) {
+    debugPrint(
+        "onInRoomCommandReceived, fromUser:${commandData.fromUser}, command:${commandData.command}");
+    // You can display different animations according to gift-type
+    if (commandData.fromUser.id != localUserID) {
+      GiftWidget.show(context, "assets/sports-car.svga");
+    }
+  }
 
   Future<void> _sendGift() async {
     try {
