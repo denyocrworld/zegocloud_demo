@@ -1,8 +1,8 @@
+import 'package:live_audio_room/module/live_audio_room/controller/live_audio_room_controller.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:live_audio_room/core.dart';
 import 'package:live_audio_room/module/live_audio_room/widget/info_container.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:zego_uikit_prebuilt_live_audio_room/zego_uikit_prebuilt_live_audio_room.dart';
 
 class LiveAudioRoomView extends StatefulWidget {
@@ -641,8 +641,8 @@ class LiveAudioRoomView extends StatefulWidget {
       child: LayoutBuilder(
         builder: (context, constraints) {
           return ZegoUIKitPrebuiltLiveAudioRoom(
-            appID: appId /*input your AppID*/,
-            appSign: appSign /*input your AppSign*/,
+            appID: yourAppID /*input your AppID*/,
+            appSign: yourAppSign /*input your AppSign*/,
             userID: localUserID,
             userName: 'user_$localUserID',
             roomID: roomID,
